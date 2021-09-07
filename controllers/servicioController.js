@@ -15,7 +15,7 @@ exports.createService = async (req, res) => {
 
 exports.getServices = async (req, res) => {
     try {
-        const services = await Service.find();
+        const services = await Service.find().sort({fechaVto: 1});
         res.json(services);
 
     } catch (error) {
@@ -68,6 +68,18 @@ exports.deleteService = async (req, res) => {
         }
         await Service.findByIdAndRemove({ _id: req.params.id})
         res.json({msg: 'Servicio eliminado correctamente'});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Ocurrió un error")
+    }
+}
+
+exports.getServiceByBank = async (req, res) => {
+    const bankName = req.params.bank_name;
+    try {
+        const services = await Service.find({banco: bankName}).sort({fechaVto: 1});
+        res.json(services);
 
     } catch (error) {
         console.log(error);

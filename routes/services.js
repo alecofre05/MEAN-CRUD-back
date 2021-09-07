@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const serviceController = require('../controllers/servicioController')
+const apiUrl = '/api/servicios';
 
-router.post('/', serviceController.createService);
-router.get('/', serviceController.getServices);
-router.get('/:id', serviceController.getServiceByID);
-router.put('/:id', serviceController.updateServices);
-router.delete('/:id', serviceController.deleteService);
+router.post(apiUrl, serviceController.createService);
+router.get(apiUrl, serviceController.getServices);
+router.get(apiUrl+'/banco/:bank_name', serviceController.getServiceByBank);
+router.get(apiUrl+'/:id', serviceController.getServiceByID);
+router.put(apiUrl+'/:id', serviceController.updateServices);
+router.delete(apiUrl+'/:id', serviceController.deleteService);
 
 
 module.exports = router;
